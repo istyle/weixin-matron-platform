@@ -13,12 +13,13 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<weixin-java-mp.version>2.6.2.BETA</weixin-java-mp.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>com.github.binarywang</groupId>
 			<artifactId>weixin-java-mp</artifactId>
-			<version>2.6.0</version>
+			<version>${weixin-java-mp.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>
