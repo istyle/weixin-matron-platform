@@ -11,7 +11,6 @@ import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
-import me.chanjar.weixin.mp.bean.result.WxMpUser;
 
 @Component
 public class SubscribeHandler extends AbstractHandler {
@@ -22,9 +21,11 @@ public class SubscribeHandler extends AbstractHandler {
 		this.logger.info("新关注用户 OPENID: " + wxMessage.getFromUser());
 
 		// 获取微信用户基本信息
-		WxMpUser userWxInfo = weixinService.getUserService().userInfo(wxMessage.getFromUser(), null);
+		// WxMpUser userWxInfo =
+		// weixinService.getUserService().userInfo(wxMessage.getFromUser(),
+		// null);
 
-		if (userWxInfo != null) {
+		if (wxMessage.getFromUser() != null) {
 			// TODO 可以添加关注用户到本地
 		}
 
