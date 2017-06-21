@@ -32,7 +32,7 @@ public class WeixinController {
 	@Autowired
 	private WxMpMessageRouter router;
 
-	@GetMapping(produces = "text/plain;charset=utf-8")
+	@GetMapping(produces = "text/plain;charset=UTF-8")
 	public String authGet(@RequestParam(name = "signature", required = false) String signature, @RequestParam(name = "timestamp", required = false) String timestamp, @RequestParam(name = "nonce", required = false) String nonce, @RequestParam(name = "echostr", required = false) String echostr) {
 
 		this.logger.info("\n接收到来自微信服务器的认证消息：[{}, {}, {}, {}]", signature, timestamp, nonce, echostr);
@@ -50,23 +50,14 @@ public class WeixinController {
 
 	@PostMapping(produces = "application/xml; charset=UTF-8")
 	public String post(@RequestBody String requestBody, @RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce, @RequestParam(name = "encrypt_type", required = false) String encType, @RequestParam(name = "msg_signature", required = false) String msgSignature) {
-		this.logger.info("\n接收微信请求：[signature=[{}], encType=[{}], msgSignature=[{}]," + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ", signature, encType, msgSignature, timestamp, nonce, requestBody);
+		this.logger.info("\n接收微信请求：[signature=[{}], encType=[{}], msgSignature=[{}], timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ", signature, encType, msgSignature, timestamp, nonce, requestBody);
 
 		if (!this.wxService.checkSignature(timestamp, nonce, signature)) {
 			throw new IllegalArgumentException("非法请求，可能属于伪造的请求！");
 		}
 
 		String out = null;
-		if (encType == null) {
-			// 明文传输的消息
-			WxMpXmlMessage inMessage = WxMpXmlMessage.fromXml(requestBody);
-			WxMpXmlOutMessage outMessage = this.route(inMessage);
-			if (outMessage == null) {
-				return "";
-			}
-
-			out = outMessage.toXml();
-		} else if ("aes".equals(encType)) {
+		if ("aes".equals(encType)) {
 			// aes加密的消息
 			WxMpXmlMessage inMessage = WxMpXmlMessage.fromEncryptedXml(requestBody, this.wxService.getWxMpConfigStorage(), timestamp, nonce, msgSignature);
 			this.logger.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
@@ -76,6 +67,15 @@ public class WeixinController {
 			}
 
 			out = outMessage.toEncryptedXml(this.wxService.getWxMpConfigStorage());
+		} else {
+			// 明文传输的消息
+			WxMpXmlMessage inMessage = WxMpXmlMessage.fromXml(requestBody);
+			WxMpXmlOutMessage outMessage = this.route(inMessage);
+			if (outMessage == null) {
+				return "";
+			}
+
+			out = outMessage.toXml();
 		}
 
 		this.logger.debug("\n组装回复信息：{}", out);
