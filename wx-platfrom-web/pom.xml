@@ -14,7 +14,7 @@
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<weixin-java-mp.version>2.6.2.BETA</weixin-java-mp.version>
+		<weixin-java-mp.version>2.7.0</weixin-java-mp.version>
 	</properties>
 	<dependencies>
 		<dependency>
