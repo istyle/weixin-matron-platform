@@ -15,8 +15,14 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<weixin-java-mp.version>2.7.0</weixin-java-mp.version>
+		<iwamama-member-service-api.version>1.0.0-SNAPSHOT</iwamama-member-service-api.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.iwamama</groupId>
+			<artifactId>iwamama-member-service-api</artifactId>
+			<version>${iwamama-member-service-api.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
