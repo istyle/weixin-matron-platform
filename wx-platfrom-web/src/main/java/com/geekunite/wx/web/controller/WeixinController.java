@@ -1,8 +1,6 @@
 package com.geekunite.wx.web.controller;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +20,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
  *
  */
 @RestController
-public class WeixinController {
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+public class WeixinController extends BaseController {
 
 	@Autowired
 	private WxMpService wxService;
