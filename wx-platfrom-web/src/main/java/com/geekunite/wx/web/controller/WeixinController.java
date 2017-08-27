@@ -59,7 +59,7 @@ public class WeixinController extends BaseController {
 			this.logger.debug("\n消息解密后内容为：\n{} ", inMessage.toString());
 			WxMpXmlOutMessage outMessage = this.route(inMessage);
 			if (outMessage == null) {
-				return "";
+				return StringUtils.EMPTY;
 			}
 
 			out = outMessage.toEncryptedXml(this.wxService.getWxMpConfigStorage());
@@ -68,7 +68,7 @@ public class WeixinController extends BaseController {
 			WxMpXmlMessage inMessage = WxMpXmlMessage.fromXml(requestBody);
 			WxMpXmlOutMessage outMessage = this.route(inMessage);
 			if (outMessage == null) {
-				return "";
+				return StringUtils.EMPTY;
 			}
 
 			out = outMessage.toXml();
