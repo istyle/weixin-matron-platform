@@ -15,5 +15,5 @@
 
 	<dubbo:reference id="wxUserServiceFacade"
 		interface="com.iwamama.member.facade.IWxUserServiceFacade" timeout="30000"
-		version="${com.iwamama.member.facade.IWxUserServiceFacade.version}" />
+		check="false" version="${com.iwamama.member.facade.IWxUserServiceFacade.version}" />
 </beans>
