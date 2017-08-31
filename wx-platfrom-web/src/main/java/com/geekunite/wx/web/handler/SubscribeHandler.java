@@ -42,6 +42,12 @@ public class SubscribeHandler extends AbstractHandler {
 				wxUserPOJO.setCreateDate(now);
 				wxUserPOJO.setUpdateDate(now);
 				wxUserServiceFacade.insert(wxUserPOJO);
+			} else {
+				WxUserPOJO wxUserPOJO = new WxUserPOJO();
+				Date now = new Date();
+				wxUserPOJO.setOpenid(openid);
+				wxUserPOJO.setUpdateDate(now);
+				wxUserServiceFacade.updateWxUserByOpenId(wxUserPOJO);
 			}
 			WxMpXmlOutMessage responseResult = handleSpecial(wxMessage);
 			if (responseResult != null) {
@@ -52,8 +58,7 @@ public class SubscribeHandler extends AbstractHandler {
 		} catch (Exception e) {
 			this.logger.error(e.getMessage(), e);
 		}
-
-		return null;
+		return new TextBuilder().build("感谢关注", wxMessage, weixinService);
 	}
 
 	/**
